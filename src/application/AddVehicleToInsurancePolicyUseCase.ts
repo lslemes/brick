@@ -28,12 +28,12 @@ export default class AddVehicleToInsurancePolicyUseCase extends UseCase<AddVehic
 
 		if (!quote) throw new QuoteNotFoundError(quoteId);
 		if (!insurancePolicy) throw new InsurancePolicyNotFoundError(insurancePolicyId);
-		if (insurancePolicy.cancelled) throw new CancelledInsurancePolicyError(insurancePolicyId);
+		if (insurancePolicy.cancelled) throw new CancelledInsurancePolicyError(insurancePolicy);
 		const now = new Date();
-		if (now < insurancePolicy.start || now > insurancePolicy.end)
-			throw new InactiveInsurancePolicyError(insurancePolicy);
+		const inactiveInsurancePolicy = now < insurancePolicy.start || now > insurancePolicy.end;
+		if (inactiveInsurancePolicy) throw new InactiveInsurancePolicyError(insurancePolicy);
 		const quoteAlreadyExists = !!insurancePolicy.quotes.find((q) => q.id === quoteId);
-		if (quoteAlreadyExists) throw new QuoteAlreadyExistsError(quoteId);
+		if (quoteAlreadyExists) throw new QuoteAlreadyExistsError(quote);
 		const equivalentQuote = insurancePolicy.quotes.find(
 			(q) => q.coverage === quote.coverage && q.vehicle.id === quote.vehicle.id,
 		);

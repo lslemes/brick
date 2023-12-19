@@ -1,1 +1,4 @@
-export default interface RemoveVehicleFromInsurancePolicyInput {}
+export default interface RemoveVehicleFromInsurancePolicyInput {
+	vehicleId: string;
+	insurancePolicyId: string;
+}
