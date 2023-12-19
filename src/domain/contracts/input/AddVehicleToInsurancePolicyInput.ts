@@ -1,4 +1,5 @@
 export default interface AddVehicleToInsurancePolicyInput {
-	quoteId: string;
+	vehicleId: string;
+	quoteIds: string[];
 	insurancePolicyId: string;
 }

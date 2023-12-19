@@ -5,41 +5,57 @@ import InactiveInsurancePolicyError from "../domain/errors/InactiveInsurancePoli
 import InsurancePolicyNotFoundError from "../domain/errors/InsurancePolicyNotFoundError";
 import QuoteAlreadyExistsError from "../domain/errors/QuoteAlreadyExistsError";
 import QuoteNotFoundError from "../domain/errors/QuoteNotFoundError";
+import QuotesNotFoundError from "../domain/errors/QuotesNotFoundError";
+import VehicleNotFoundError from "../domain/errors/VehicleNotFoundError";
 import InsurancePolicyRepository from "../domain/repositories/InsurancePolicyRepository";
 import QuoteRepository from "../domain/repositories/QuoteRepository";
+import VehicleRepository from "../domain/repositories/VehicleRepository";
+import TransactionManager from "./TransactionManager";
 import UseCase from "./UseCase";
 import Validator from "./Validator";
 
 export default class AddVehicleToInsurancePolicyUseCase extends UseCase<AddVehicleToInsurancePolicyInput, void> {
 	constructor(
+		private readonly transactionManager: TransactionManager,
 		private readonly insurancePolicyRepository: InsurancePolicyRepository,
 		private readonly quoteRepository: QuoteRepository,
+		private readonly vehicleRepository: VehicleRepository,
 		validator: Validator,
 	) {
 		super(validator);
 	}
 
-	// TODO: allow insertion of multiple quotes
-	protected async _execute({ quoteId, insurancePolicyId }: AddVehicleToInsurancePolicyInput): Promise<void> {
-		const [quote, insurancePolicy] = await Promise.all([
-			this.quoteRepository.findById(quoteId),
+	protected async _execute({
+		vehicleId,
+		quoteIds,
+		insurancePolicyId,
+	}: AddVehicleToInsurancePolicyInput): Promise<void> {
+		const quotesFilter = { quoteId: { in: quoteIds } };
+		const [quotes, insurancePolicy, vehicle] = await Promise.all([
+			this.quoteRepository.findAll(quotesFilter),
 			this.insurancePolicyRepository.findById(insurancePolicyId),
+			this.vehicleRepository.findById(vehicleId),
 		]);
 
-		if (!quote) throw new QuoteNotFoundError(quoteId);
+		if (quotes.length === 0) throw new QuotesNotFoundError(quotesFilter);
+		const foundQuoteIds = new Set(quotes.map((quote) => quote.id));
+		const notFoundQuoteIds = quoteIds.filter((quoteId) => !foundQuoteIds.has(quoteId));
+		if (notFoundQuoteIds.length > 0) throw new QuoteNotFoundError(notFoundQuoteIds.join(", "));
 		if (!insurancePolicy) throw new InsurancePolicyNotFoundError(insurancePolicyId);
+		if (!vehicle) throw new VehicleNotFoundError(vehicleId);
 		if (insurancePolicy.cancelled) throw new CancelledInsurancePolicyError(insurancePolicy);
 		const now = new Date();
 		const inactiveInsurancePolicy = now < insurancePolicy.start || now > insurancePolicy.end;
 		if (inactiveInsurancePolicy) throw new InactiveInsurancePolicyError(insurancePolicy);
-		const quoteAlreadyExists = !!insurancePolicy.quotes.find((q) => q.id === quoteId);
-		if (quoteAlreadyExists) throw new QuoteAlreadyExistsError(quote);
-		const equivalentQuote = insurancePolicy.quotes.find(
-			(q) => q.coverage === quote.coverage && q.vehicle.id === quote.vehicle.id,
+		const quoteAlreadyExists = insurancePolicy.quotes.find((quote) => quoteIds.includes(quote.id));
+		if (quoteAlreadyExists) throw new QuoteAlreadyExistsError(quoteAlreadyExists);
+		const equivalentQuote = insurancePolicy.quotes.find((quote) =>
+			quotes.find((q) => q.coverage === quote.coverage && q.vehicle.id === quote.vehicle.id),
 		);
 		if (equivalentQuote) throw new EquivalentQuoteExistsError(equivalentQuote);
 
-		insurancePolicy.quotes.push(quote);
-		await this.insurancePolicyRepository.update(insurancePolicyId, insurancePolicy);
+		await this.transactionManager.runInTransaction(async (transaction) => {
+			await Promise.all(quotes.map((quote) => this.quoteRepository.create(quote, transaction)));
+		});
 	}
 }
