@@ -2,13 +2,13 @@ import AddVehicleToInsurancePolicyUseCase from "./application/use-cases/AddVehic
 import CreateInsurancePolicyUseCase from "./application/use-cases/CreateInsurancePolicyUseCase";
 import GetInsurancePolicyUseCase from "./application/use-cases/GetInsurancePolicyUseCase";
 import RemoveVehicleFromInsurancePolicyUseCase from "./application/use-cases/RemoveVehicleFromInsurancePolicyUseCase";
+import MockTransactionManager from "./infrastructure/MockTransactionManager";
 import MockValidator from "./infrastructure/MockValidator";
 import InsurancePolicyController from "./infrastructure/express/controllers/InsurancePolicyController";
 import InsurancePolicyMockRepository from "./infrastructure/mockRepositories/InsurancePolicyMockRepository";
 import ProposalMockRepository from "./infrastructure/mockRepositories/ProposalMockRepository";
 import QuoteMockRepository from "./infrastructure/mockRepositories/QuoteMockRepository";
 import VehicleMockRepository from "./infrastructure/mockRepositories/VehicleMockRepository";
-import MockTransactionManager from "./infrastructure/mockTransactionManager";
 
 const mockTransactionManager = new MockTransactionManager();
 const mockValidator = new MockValidator();
