@@ -1,1 +1,3 @@
-export default interface GetInsurancePolicyInput {}
+export default interface GetInsurancePolicyInput {
+	insurancePolicyId: string;
+}
