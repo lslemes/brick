@@ -4,7 +4,9 @@
   "scripts": {
     "format": "prettier . --write",
     "lint": "eslint . --fix",
-    "build": "rm -rf build && npx tsc"
+    "build": "rm -rf build && npx tsc",
+    "dev": "nodemon src/infrastructure/express/server.ts",
+    "start": "node build/infrastructure/express/server.js"
   },
   "devDependencies": {
     "@tsconfig/node-lts": "^20.1.0",
@@ -37,6 +39,7 @@
   },
   "engineStrict": true,
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2"
   }
 }
