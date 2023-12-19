@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "3b76389f-9413-45c4-8faf-7944a949c1b8",
+		"name": "brick",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31815077"
+	},
+	"item": [
+		{
+			"name": "add vehicle to insurance policy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"quoteIds\": [\r\n        \"b9d53b2b-48e9-4fc4-8c11-042a1e18ac7a\",\r\n        \"386d55ef-21e1-4d81-9cae-d8ef7077972f\"\r\n    ],\r\n    \"vehicleId\": \"6ba35ce6-d0b9-47ec-ae17-b810e22389a2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/insurance-policies/:id/add-vehicle",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"insurance-policies",
+						":id",
+						"add-vehicle"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "bdff179a-7543-451e-b1cd-71c82a3f6962"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create insurance policy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"proposalId\": \"0f831686-32db-47e1-9dca-3966f08d7fb7\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/insurance-policies",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"insurance-policies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get insurance policy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API}}/insurance-policies/:id",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"insurance-policies",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "26792ded-22e2-4fa0-8948-eb74d7d5e04b"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "remove vehicle from insurance policy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"vehicleId\": \"c5c66267-3a11-4575-94aa-dd123fd7807f\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{API}}/insurance-policies/:id/remove-vehicle",
+					"host": [
+						"{{API}}"
+					],
+					"path": [
+						"insurance-policies",
+						":id",
+						"remove-vehicle"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "c6979bf5-3cf4-4892-ad99-e9198397ca39"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
