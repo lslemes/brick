@@ -1,1 +1,3 @@
-export default interface CreateInsurancePolicyOutput {}
+export default interface CreateInsurancePolicyOutput {
+	id: string;
+}
