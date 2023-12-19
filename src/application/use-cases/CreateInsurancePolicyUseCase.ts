@@ -1,14 +1,14 @@
 import { randomUUID } from "crypto";
-import CreateInsurancePolicyInput from "../domain/contracts/input/CreateInsurancePolicyInput";
-import CreateInsurancePolicyOutput from "../domain/contracts/output/CreateInsurancePolicyOutput";
-import ProposalStatus from "../domain/enums/ProposalStatus";
-import ProposalNotFoundError from "../domain/errors/ProposalNotFoundError";
-import UnpaidProposalError from "../domain/errors/UnpaidProposalError";
-import UnsignedProposalError from "../domain/errors/UnsignedProposalError";
-import InsurancePolicyRepository from "../domain/repositories/InsurancePolicyRepository";
-import ProposalRepository from "../domain/repositories/ProposalRepository";
-import UseCase from "./UseCase";
-import Validator from "./Validator";
+import CreateInsurancePolicyInput from "../../domain/contracts/input/CreateInsurancePolicyInput";
+import CreateInsurancePolicyOutput from "../../domain/contracts/output/CreateInsurancePolicyOutput";
+import ProposalStatus from "../../domain/enums/ProposalStatus";
+import ProposalNotFoundError from "../../domain/errors/ProposalNotFoundError";
+import UnpaidProposalError from "../../domain/errors/UnpaidProposalError";
+import UnsignedProposalError from "../../domain/errors/UnsignedProposalError";
+import InsurancePolicyRepository from "../../domain/repositories/InsurancePolicyRepository";
+import ProposalRepository from "../../domain/repositories/ProposalRepository";
+import UseCase from "../UseCase";
+import Validator from "../Validator";
 
 export default class CreateInsurancePolicyUseCase extends UseCase<
 	CreateInsurancePolicyInput,

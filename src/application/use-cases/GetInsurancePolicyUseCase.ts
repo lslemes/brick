@@ -1,9 +1,9 @@
-import GetInsurancePolicyInput from "../domain/contracts/input/GetInsurancePolicyInput";
-import GetInsurancePolicyOutput from "../domain/contracts/output/GetInsurancePolicyOutput";
-import InsurancePolicyNotFoundError from "../domain/errors/InsurancePolicyNotFoundError";
-import InsurancePolicyRepository from "../domain/repositories/InsurancePolicyRepository";
-import UseCase from "./UseCase";
-import Validator from "./Validator";
+import GetInsurancePolicyInput from "../../domain/contracts/input/GetInsurancePolicyInput";
+import GetInsurancePolicyOutput from "../../domain/contracts/output/GetInsurancePolicyOutput";
+import InsurancePolicyNotFoundError from "../../domain/errors/InsurancePolicyNotFoundError";
+import InsurancePolicyRepository from "../../domain/repositories/InsurancePolicyRepository";
+import UseCase from "../UseCase";
+import Validator from "../Validator";
 
 export default class GetInsurancePolicyUseCase extends UseCase<GetInsurancePolicyInput, GetInsurancePolicyOutput> {
 	constructor(

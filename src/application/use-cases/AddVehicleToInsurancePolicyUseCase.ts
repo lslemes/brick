@@ -1,18 +1,18 @@
-import AddVehicleToInsurancePolicyInput from "../domain/contracts/input/AddVehicleToInsurancePolicyInput";
-import CancelledInsurancePolicyError from "../domain/errors/CancelledInsurancePolicyError";
-import EquivalentQuoteExistsError from "../domain/errors/EquivalentQuoteExistsError";
-import InactiveInsurancePolicyError from "../domain/errors/InactiveInsurancePolicyError";
-import InsurancePolicyNotFoundError from "../domain/errors/InsurancePolicyNotFoundError";
-import QuoteAlreadyExistsError from "../domain/errors/QuoteAlreadyExistsError";
-import QuoteNotFoundError from "../domain/errors/QuoteNotFoundError";
-import QuotesNotFoundError from "../domain/errors/QuotesNotFoundError";
-import VehicleNotFoundError from "../domain/errors/VehicleNotFoundError";
-import InsurancePolicyRepository from "../domain/repositories/InsurancePolicyRepository";
-import QuoteRepository from "../domain/repositories/QuoteRepository";
-import VehicleRepository from "../domain/repositories/VehicleRepository";
-import TransactionManager from "./TransactionManager";
-import UseCase from "./UseCase";
-import Validator from "./Validator";
+import AddVehicleToInsurancePolicyInput from "../../domain/contracts/input/AddVehicleToInsurancePolicyInput";
+import CancelledInsurancePolicyError from "../../domain/errors/CancelledInsurancePolicyError";
+import EquivalentQuoteExistsError from "../../domain/errors/EquivalentQuoteExistsError";
+import InactiveInsurancePolicyError from "../../domain/errors/InactiveInsurancePolicyError";
+import InsurancePolicyNotFoundError from "../../domain/errors/InsurancePolicyNotFoundError";
+import QuoteAlreadyExistsError from "../../domain/errors/QuoteAlreadyExistsError";
+import QuoteNotFoundError from "../../domain/errors/QuoteNotFoundError";
+import QuotesNotFoundError from "../../domain/errors/QuotesNotFoundError";
+import VehicleNotFoundError from "../../domain/errors/VehicleNotFoundError";
+import InsurancePolicyRepository from "../../domain/repositories/InsurancePolicyRepository";
+import QuoteRepository from "../../domain/repositories/QuoteRepository";
+import VehicleRepository from "../../domain/repositories/VehicleRepository";
+import TransactionManager from "../TransactionManager";
+import UseCase from "../UseCase";
+import Validator from "../Validator";
 
 export default class AddVehicleToInsurancePolicyUseCase extends UseCase<AddVehicleToInsurancePolicyInput, void> {
 	constructor(

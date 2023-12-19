@@ -1,15 +1,15 @@
-import RemoveVehicleFromInsurancePolicyInput from "../domain/contracts/input/RemoveVehicleFromInsurancePolicyInput";
-import CancelledInsurancePolicyError from "../domain/errors/CancelledInsurancePolicyError";
-import InactiveInsurancePolicyError from "../domain/errors/InactiveInsurancePolicyError";
-import InsurancePolicyNotFoundError from "../domain/errors/InsurancePolicyNotFoundError";
-import VehicleNotFoundError from "../domain/errors/VehicleNotFoundError";
-import VehicleOutOfInsurancePolicyError from "../domain/errors/VehicleOutOfInsurancePolicyError";
-import InsurancePolicyRepository from "../domain/repositories/InsurancePolicyRepository";
-import QuoteRepository from "../domain/repositories/QuoteRepository";
-import VehicleRepository from "../domain/repositories/VehicleRepository";
-import TransactionManager from "./TransactionManager";
-import UseCase from "./UseCase";
-import Validator from "./Validator";
+import RemoveVehicleFromInsurancePolicyInput from "../../domain/contracts/input/RemoveVehicleFromInsurancePolicyInput";
+import CancelledInsurancePolicyError from "../../domain/errors/CancelledInsurancePolicyError";
+import InactiveInsurancePolicyError from "../../domain/errors/InactiveInsurancePolicyError";
+import InsurancePolicyNotFoundError from "../../domain/errors/InsurancePolicyNotFoundError";
+import VehicleNotFoundError from "../../domain/errors/VehicleNotFoundError";
+import VehicleOutOfInsurancePolicyError from "../../domain/errors/VehicleOutOfInsurancePolicyError";
+import InsurancePolicyRepository from "../../domain/repositories/InsurancePolicyRepository";
+import QuoteRepository from "../../domain/repositories/QuoteRepository";
+import VehicleRepository from "../../domain/repositories/VehicleRepository";
+import TransactionManager from "../TransactionManager";
+import UseCase from "../UseCase";
+import Validator from "../Validator";
 
 export default class RemoveVehicleFromInsurancePolicyUseCase extends UseCase<
 	RemoveVehicleFromInsurancePolicyInput,
